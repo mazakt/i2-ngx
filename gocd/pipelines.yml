@@ -1,0 +1,53 @@
+---
+product: ngx
+go_server: infra
+
+dcs:
+    ie1:
+        cloud: ie1-osp10-inf
+        tenant: CloudAutomationTest
+        migrate_from:
+            cloud: ie1-infra-osp7
+            tenant: infra admin
+
+    ie2:
+        cloud: ie2-osp10-inf
+        tenant: CloudAutomationTest
+        migrate_from:
+            cloud: ie2-infra-osp7
+            tenant: infra admin
+    ie2lab:
+        testlab_dc: ie2
+        cloud: ie2-ospk-lab
+        tenant: infra admin
+        migrate_from:
+            cloud: ie2-osp10-lab
+            tenant: infra admin
+
+globals:
+    config_repo: true
+environments:
+    lab:
+        template: generic_ansible_pipeline_ns.xml
+        vip: false
+        openstack_availability_zone: lab
+        availability_zone: qa
+        promotion: lab-promoted
+        dcs: [ie2lab]
+    qa:
+        template: generic_ansible_pipeline_ns.xml
+        availability_zone: qa
+        dcs: [ie1, ie2]
+    nxt:
+        template: generic_ansible_pipeline_ns.xml
+        availability_zone: nxt
+        dcs: [ie1, ie2]
+    prf:
+        template: generic_ansible_pipeline_ns.xml
+        availability_zone: prf
+        dcs: [ie1, ie2]
+    prd:
+        template: generic_ansible_prd_pipeline_ns.xml
+        confirmation_step: false
+        availability_zone: prd
+        dcs: [ie1, ie2]
