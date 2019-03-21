@@ -24,22 +24,10 @@
       no_log: true
       become: true
 
-    - name: Create app config folder for bf-jce-base testing
-      file:
-        path: /var/app/bf-ngx/etc/conf
-        state: directory
-        recurse: true
-      become: true
-
   roles:
     - sensu # shared role
     - bf-nginx
     - rsyslog-client # shared role
-    - sslcerts
-    - geoip
-    - bf-java-base
-    - install-jce-package
-    - bf-jce-base
 
   tasks:
     - debug:
