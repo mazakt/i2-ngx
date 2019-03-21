@@ -1,0 +1,73 @@
+##############
+##### NGX ####
+##############
+
+[ngx:children]
+ie1_ngx_qa
+ie1_ngx_nxt
+ie1_ngx_prf
+ie1_ngx_prd
+ie2_ngx_qa
+ie2_ngx_nxt
+ie2_ngx_prf
+ie2_ngx_prd
+ie2_ngx_lab
+
+[ngx:vars]
+vcpus=2
+diskspace=20
+image="centos-7-base"
+runlist="bf-nginx,rsyslog-client,sensu"
+start_cmd="/sbin/service nginx start"
+stop_cmd="/sbin/service nginx stop"
+sensu_subs="linux,ngx-i2_linux_vm"
+sensu_checks="check_rsyslog_disk_buffer"
+
+
+##### QA #####
+[ie1_ngx_qa]
+ie1-ngx[01:02]-qa.qa.betfair ram=1024 min_hypervisors=1 
+
+[ie2_ngx_qa]
+ie2-ngx[01:02]-qa.qa.betfair ram=1024 min_hypervisors=1
+
+
+##### NXT #####
+[ie1_ngx_nxt]
+ie1-ngx[01:02]-nxt.nxt.betfair ram=1024  min_hypervisors=1
+
+[ie2_ngx_nxt]
+ie2-ngx[01:02]-nxt.nxt.betfair ram=1024  min_hypervisors=1
+
+
+##### PRF #####
+[ie1_ngx_prf]
+ie1-ngx[01:02]-prf.prf.betfair ram=1024  min_hypervisors=1
+
+[ie2_ngx_prf]
+ie2-ngx[01:02]-prf.prf.betfair  ram=1024  min_hypervisors=1
+
+
+##### PRD #####
+[ie1_ngx_prd]
+ie1-ngx[01:02]-prd.prd.betfair ram=2048 min_hypervisors=1
+
+[ie2_ngx_prd]
+ie2-ngx[01:02]-prd.prd.betfair ram=2048 min_hypervisors=1
+
+
+#### lab ####
+[ie2_ngx_lab:vars]
+ram=2048
+vcpus=10
+flavor_hw:mem_page_size="2048"
+flavor_hw:numa_nodes="2"
+flavor_hw:numa_cpus.0="0-4"
+flavor_hw:numa_cpus.1="5-9"
+flavor_hw:numa_mem.0="1024"
+flavor_hw:numa_mem.1="1024"
+flavor_hw:cpu_policy="dedicated"
+flavor_hw:cpu_thread_policy="require"
+
+[ie2_ngx_lab]
+ie2-ngx01-lab.lab.betfair 

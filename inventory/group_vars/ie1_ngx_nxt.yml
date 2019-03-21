@@ -1,0 +1,3 @@
+---
+sensu_contact: "core-i2-engineers-nonprod"
+sensu_contact_low_priority: "core-i2-engineers-nonprod"

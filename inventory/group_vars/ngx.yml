@@ -1,0 +1,29 @@
+---
+
+application_name: bf-nginx
+config_dir: "/etc/{{ application_name }}"
+
+default_sensu_checks:
+  - check_context_switching
+  - check_cron
+  - check_ntp
+  - check_users
+  - check_readonly_filesystem
+  - check_rsyslog
+  - check_sshd
+  - check_total_processes
+  - check_users
+
+
+# monitoring rpms
+sensu_monitoring_rpms:
+ - bf-opsview-plugins-el6-1.1-11.x86_64
+ - nagios-plugins-ntp-2.0.3-3.el6.x86_64
+ - nagios-plugins-users-2.0.3-3.el6.x86_64
+
+
+# sensu pager duty contacts
+# Note: Since this is an internal test app we don't want to wake people.
+# This "uk.automation" will black-hole until a mapping is setup within sensu which can pass to email and not PD.
+#
+sensu_contact: "uk.automation"
