@@ -1,0 +1,50 @@
+---
+gslbvserver:
+  name: "gslb-ngx"
+  backuplbmethod: "ROUNDROBIN"
+  tolerance: 0
+  type: "HTTP"
+  appflowlog: "DISABLED"
+  gslbservice_binding: "gslb-80-ngx"
+  domain:
+    - domainname: "ngx"
+      ttl: 100
+
+gslbservices:
+  servername: "gslb-cs-ngx"
+  services:
+    - servicename: "gslb-80-ngx"
+      servicetype: "HTTP"
+      maxclient: 0
+      svrtimeout: 360
+      port: 80
+      publicport: 80
+      clttimeout: 180
+    - servicename: "gslb-443-ngx"
+      servicetype: "SSL"
+      maxclient: 0
+      svrtimeout: 360
+      port: 443
+      publicport: 443
+      clttimeout: 180
+
+csvservers:
+    - name: "cs-443-ngx"
+      casesensitive: "OFF"
+      listenpolicy: "None"
+      stateupdate: "ENABLED"
+      servicetype: "SSL"
+      certificate: "wildcard.app.betfair.san"
+      port: 443
+      clttimeout: 180
+      bindings:
+        - lbvserver: "lb-80-ngx"
+    - name: "cs-80-ngx"
+      casesensitive: "OFF"
+      listenpolicy: "None"
+      stateupdate: "ENABLED"
+      servicetype: "HTTP"
+      port: 80
+      clttimeout: 180
+      bindings:
+        - lbvserver: "lb-80-ngx"

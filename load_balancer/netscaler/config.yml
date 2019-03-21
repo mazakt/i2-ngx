@@ -1,0 +1,23 @@
+---
+domains:
+  - ngx
+
+lbvservers:
+  - name: "lb-80-ngx"
+    servicetype: "HTTP"
+    lbmethod: "ROUNDROBIN"
+    persistencetype: "NONE"
+    service:
+      servicetype: "HTTP"
+      maxclient: 0
+      port: 80
+      lbmonitor: "mon-ngx-http"
+
+lbmonitors:
+  - name: "mon-ngx-http"
+    type: "HTTP"
+    httprequest: "GET /"
+    respcode: "200"
+
+roll_percentage: 1
+
