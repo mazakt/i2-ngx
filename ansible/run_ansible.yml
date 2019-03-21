@@ -1,0 +1,79 @@
+---
+
+# Setup environment and group the hosts dynamically
+# (going forward, this should be done by dynamic inventory)
+- hosts: all
+  gather_facts: False
+  tasks:
+    - include: common/load_env.yml
+
+
+# Configure the newly deployed VMs
+- hosts: new_hosts
+  gather_facts: False
+  pre_tasks:
+    # snippetize this
+    - name: retrieve TLA vault token
+      slurp:
+        src: /home/centos/.vault_token
+      register: vault_tla_token
+      # run_once + ignore_errors does not work properly, tried to reproduce locally (with ansible 2.0.1.0)
+      # but all hosts were processed, some check in the framework itself?
+      #run_once: true
+      ignore_errors: true
+      no_log: true
+      become: true
+
+    - name: Create app config folder for bf-jce-base testing
+      file:
+        path: /var/app/bf-ngx/etc/conf
+        state: directory
+        recurse: true
+      become: true
+
+  roles:
+    - sensu # shared role
+    - bf-nginx
+    - rsyslog-client # shared role
+    - sslcerts
+    - geoip
+    - bf-java-base
+    - install-jce-package
+    - bf-jce-base
+
+  tasks:
+    - debug:
+        var: myvar
+
+    - debug:
+        var: firsthost
+
+    - debug:
+        var: min_hypervisors
+
+    - name: start application
+      include: common/start_application.yml
+      vars:
+        start_cmd: "{{ metadata.start_cmd }}"
+      when: metadata.start_cmd|default(False)
+
+    - name: poll application status
+      command: "{{ metadata['healthcheck'] }}"
+      register: result
+      until: result|success
+      retries: 250
+      delay: 2
+      when: metadata['healthcheck'] is defined and metadata['healthcheck'] != ""
+
+    - name: start sensu agent
+      service:
+        name: "sensu-client"
+        state: restarted
+        enabled: yes
+      become: yes
+      register: result
+      until: result|success
+      when:
+        - runlist is defined
+        - "'sensu-agent' in runlist or 'sensu' in runlist"
+        - custom_sensu_start | default('false') != true

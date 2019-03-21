@@ -1,0 +1,4 @@
+- name: Install JCE package
+  yum:
+    name: bf-java-component-environment
+  become: true

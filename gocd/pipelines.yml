@@ -26,6 +26,9 @@ dcs:
 
 globals:
     config_repo: true
+    run_ansible_playbook: run_ansible.yml
+    custom_rolling_update_playbook: rolling_update.yml
+
 environments:
     lab:
         template: generic_ansible_pipeline_ns.xml

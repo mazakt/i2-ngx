@@ -1,0 +1,77 @@
+###################################################################################################
+#                                                                                                 #
+# This playbook uses two task lists for rolling in and out boxes: roll_in_box.yml and             #
+# roll_out_box.yml, both located under the common/ directory (linked from framework).             #
+#                                                                                                 #
+# The logic of the playbook is the following:                                                     #
+#   - new vms are put put in service and old vms are taken out                                    #
+#   - old vms are put back in service and old vms are taken out in case a task fails on new vms   #
+#                                                                                                 #
+###################################################################################################
+---
+
+# Setup environment and group the hosts dynamically
+- hosts: all
+  connection: local
+  gather_facts: False
+  pre_tasks:
+    - include: common/load_env.yml
+    - include: common/load_os_clouds.yml
+    - include: common/reorder_hosts.yml
+  tasks:
+    - add_host:
+        groups: ordered_new_hosts
+        name: "{{ item }}"
+      with_items: "{{ groups.new_hosts|sort }}"
+      run_once: True
+
+    - add_host:
+        groups: ordered_old_hosts
+        name: "{{ item }}"
+      with_items: "{{ groups.old_hosts|default([])|sort }}"
+      run_once: True
+
+# Perform the Rolling Update
+- hosts: interleaved_group
+  connection: local
+  gather_facts: False
+  serial: 1
+  tasks:
+    - block:
+        - name: ROLL IN NEW BOXES
+          include: common/roll_in_box.yml
+          vars:
+            box_name: "{{ inventory_hostname }}"
+          when:
+              - is_new_box
+
+        - name: ROLL OUT OLD BOXES
+          include: common/roll_out_box.yml
+          vars:
+            box_name: "{{ inventory_hostname }}"
+          when:
+              - is_old_box
+
+      rescue:
+        - block:
+            - debug:
+                msg: "There was an error rolling in {{ inventory_hostname }} ... putting old boxes back live"
+
+            - name: ROLL BACK IN OLD BOXES
+              include: common/roll_in_box.yml
+              vars:
+                 is_rollback: True
+              with_items: "{{ groups.ordered_old_hosts|default([]) }}"
+
+            - name: ROLL OUT NEW BOXES
+              include: common/roll_out_box.yml
+              vars:
+                 is_rollback: True
+              with_items: "{{ groups.ordered_new_hosts }}"
+
+            - name: Re-raise failure
+              fail:
+                msg: "Rolling update has failed. Old boxes were put back in service!"
+              run_once: true
+
+          when: is_new_box
