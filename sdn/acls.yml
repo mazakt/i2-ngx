@@ -1,0 +1,14 @@
+---
+acls:
+  ingress: []
+  egress:
+  - name: avi-dns
+    protocol: UDP
+    dst_type: ZONE
+    dst: avi
+    dst_port: 53
+    env_mapping:
+      qa: None
+      nxt: nxt
+      prf: None
+      prd: None

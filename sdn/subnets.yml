@@ -1,0 +1,14 @@
+---
+#subnet jumps provided 5,13,29,(61,125)
+subnets:
+  lab:
+     max_hosts: 29
+     network_domain: lab
+  qa:
+     max_hosts: 29
+  nxt:
+     max_hosts: 29
+  prf:
+     max_hosts: 29
+  prd:
+     max_hosts: 29
