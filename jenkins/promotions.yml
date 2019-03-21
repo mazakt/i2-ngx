@@ -1,0 +1,46 @@
+- project:
+    name: 'ngx_package'
+    tla: ngx
+    dc:
+      - 'ie1':
+          icon-type: ''
+      - 'ie2':
+          icon-type: '-e'
+    jobs:
+      - 'tla_package-dc-env-promoted-manual':
+          env:
+           - 'qa':
+               icon: 'star-silver'
+               promote_to: 'nxt'
+           - 'nxt':
+               icon: 'star-gold'
+               promote_to: 'prf'
+           - 'prf':
+               icon: 'star-orange'
+               promote_to: 'prd'
+           - 'prd':
+               icon: 'star-green'
+               promote_to: 'released'
+      - 'tla_package-dc-env-promoted-manual-no-art':
+          env:
+           - 'lab':
+               icon: 'star-purple'
+
+- project:
+     name: 'ngx_ci_build'
+     tla: ngx
+     product: 'bf-ngx'
+     icon-type: ''
+     jobs:
+       - 'tla_ci_build-upstream':
+            icon: 'star-silver'
+            project: '{tla}_package'
+
+- project:
+    name: 'ngx_ansible_ci_build'
+    tla: ngx
+    cm: ansible
+    icon-type: ''
+    jobs:
+      - 'tla_cm_ci_build-upstream':
+            icon: 'star-silver'
