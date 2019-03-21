@@ -1,0 +1,6 @@
+---
+
+users:
+  # Pre-populated from Service Now
+  - user: Denis.Jackman@paddypowerbetfair.com
+    role: master
