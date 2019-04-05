@@ -1,13 +1,5 @@
 ---
 
-# Setup environment and group the hosts dynamically
-# (going forward, this should be done by dynamic inventory)
-- hosts: all
-  gather_facts: False
-  tasks:
-    - include: common/load_env.yml
-
-
 # Configure the newly deployed VMs
 - hosts: new_hosts
   gather_facts: False
@@ -41,17 +33,15 @@
 
     - name: start application
       include: common/start_application.yml
-      vars:
-        start_cmd: "{{ metadata.start_cmd }}"
-      when: metadata.start_cmd|default(False)
+      when: start_cmd|default(false)
 
     - name: poll application status
-      command: "{{ metadata['healthcheck'] }}"
+      command: "{{ healthcheck }}"
       register: result
       until: result|success
       retries: 250
       delay: 2
-      when: metadata['healthcheck'] is defined and metadata['healthcheck'] != ""
+      when: healthcheck|default(false)
 
     - name: start sensu agent
       service:
