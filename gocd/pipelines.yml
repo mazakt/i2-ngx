@@ -26,8 +26,7 @@ dcs:
 
 globals:
     config_repo: true
-    run_ansible_playbook: run_ansible.yml
-    custom_rolling_update_playbook: rolling_update.yml
+    rolling_update: 'generic_rolling_update_with_volumes'
 
 environments:
     lab:
@@ -36,6 +35,8 @@ environments:
         openstack_availability_zone: lab
         availability_zone: qa
         promotion: lab-promoted
+        tests_append_dc: true
+        test_job_rolling_update: ngx_integration-tests
         dcs: [ie2lab]
     qa:
         template: generic_ansible_pipeline_ns.xml
