@@ -6,6 +6,9 @@
     first-environment: qa
     product: bf-nginx
     role: bf-nginx
+    dc:
+    - 'ie1'
+    - 'ie2'
     jobs:
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
