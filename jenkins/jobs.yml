@@ -8,6 +8,7 @@
     role: bf-nginx
     jobs:
     - '{tla}_{cm}_ci_build'
+    - '{tla}_integration-tests-{dc}'
     extended-jobs:
     - tla_package_isolated:
         package-metadata:
@@ -79,3 +80,44 @@
     publishers:
     - archive:
         artifacts: metadata.txt
+
+- job-template:
+    name: '{tla}_integration-tests-{dc}'
+    project-type: maven
+    logrotate:
+      numToKeep: 20
+    parameters:
+    - string:
+        name: virtualmachine
+    - string:
+        name: package
+    wrappers:
+    - timestamps
+    - ansicolor
+    - timeout:
+        fail: true
+        type: absolute
+        timeout: 300
+        write-description: "Build timed out (after {{0}} minutes). Marking the build as failed."
+    maven:
+      maven-name: maven-3.3.9-bf-nexus
+      root-pom: pom.xml
+      automatic-archiving: false
+      goals: validate
+      private-repository: local-to-workspace
+
+    jdk: '1.8.0_25'
+    prebuilders:
+    - shell: |
+        cat <<EOF > pom.xml
+        <project>
+
+          <modelVersion>4.0.0</modelVersion>
+          <name>Maven Default Project</name>
+
+          <artifactId>foo</artifactId>
+          <groupId>bar</groupId>
+          <version>0.0.1-SNAPSHOT</version>
+
+        </project>
+        EOF
