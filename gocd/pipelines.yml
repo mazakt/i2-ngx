@@ -1,4 +1,6 @@
 ---
+schema_version: 1.4.0
+
 product: ngx
 go_server: infra
 
