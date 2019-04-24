@@ -43,6 +43,8 @@ environments:
     qa:
         template: generic_ansible_pipeline_ns.xml
         availability_zone: qa
+        tests_append_dc: true
+        test_job_rolling_update: ngx_integration-tests
         dcs: [ie1, ie2]
     nxt:
         template: generic_ansible_pipeline_ns.xml

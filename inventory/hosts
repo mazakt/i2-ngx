@@ -23,6 +23,7 @@ stop_cmd="/sbin/service nginx stop"
 sensu_subs="linux,ngx-i2_linux_vm,common_checks"
 sensu_checks="check_rsyslog_disk_buffer"
 healthcheck="/usr/lib64/nagios/plugins/check_http -H localhost -p 80 -u / -e '200'"
+custom_start="true"
 
 
 ##### QA #####
