@@ -59,3 +59,4 @@ environments:
         confirmation_step: false
         availability_zone: prd
         dcs: [ie1, ie2]
+
