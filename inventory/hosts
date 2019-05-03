@@ -28,10 +28,10 @@ custom_start="true"
 
 ##### QA #####
 [ie1_ngx_qa]
-ie1-ngx[01:02]-qa.qa.betfair ram=1024 min_hypervisors=1 
+ie1-ngx[01:04]-qa.qa.betfair ram=1024 min_hypervisors=1
 
 [ie2_ngx_qa]
-ie2-ngx[01:02]-qa.qa.betfair ram=1024 min_hypervisors=1
+ie2-ngx[01:04]-qa.qa.betfair ram=1024 min_hypervisors=1
 
 
 ##### NXT #####
