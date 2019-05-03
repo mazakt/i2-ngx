@@ -28,7 +28,7 @@ dcs:
 
 globals:
     config_repo: true
-    #rolling_update: 'generic_rolling_update_with_volumes'
+    rolling_update: default
 
 environments:
     lab:
