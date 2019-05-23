@@ -1,119 +1,112 @@
 ---
 ns:
   ie1:
-    vip_subnet: "10.83.122.0/23"
+    vip_subnet: "10.83.96.0/23"
     csvservers:
-      - name: "cs-443-ngx-qa.default"
-        servicetype: "TCP"
-        port: 443
-        lbvserver: "lb-443-ngx-qa.default"
-        fqdn: "ie1-ngx-qa.qa.betfair"
-        cname: "ie1-ngx-qa.qa.betfair"
-
-      - name: "cs-80-ngx-qa.default"
+      - name: "cs-80-ngx-nxt.default"
         servicetype: "HTTP"
         port: 80
-        lbvserver: "lb-80-ngx-qa.default"
-        fqdn: "ie1-ngx-qa.qa.betfair"
-        cname: "ie1-ngx-qa.qa.betfair"
+        lbvserver: "lb-8080-ngx-nxt.default"
+        fqdn: "ie1-ngx-nxt.nxt.betfair"
+
+      - name: "cs-443-ngx-nxt.default"
+        servicetype: "SSL"
+        certificate: "wildcard.dev.betfair"
+        port: 443
+        lbvserver: "lb-443-ngx-nxt.default"
+        fqdn: "ie1-ngx-nxt.nxt.betfair"
 
     lbvservers:
-      - name: "lb-443-ngx-qa.default"
-        servicetype: "TCP"
-        lbmethod: "LEASTCONNECTION"
+      - name: "lb-8080-ngx-nxt.default"
+        servicetype: "HTTP"
+        lbmethod: "ROUNDROBIN"
         persistencetype: "NONE"
         timeout: 0
-        service:
-          servicetype: "TCP"
-          maxclient: 0
-          port: 8443
-          cmp: "NO"
-          lbmonitor: "mon-ngx"
-
-      - name: "lb-80-ngx-qa.default"
-        servicetype: "HTTP"
-        lbmethod: "LEASTCONNECTION"
-        persistencetype: "NONE"
         service:
           servicetype: "HTTP"
           maxclient: 0
           port: 8080
-          timeout: 0
+          cmp: "NO"
+          lbmonitor: "mon-ngx"
+
+      - name: "lb-443-ngx-nxt.default"
+        servicetype: "HTTP"
+        lbmethod: "ROUNDROBIN"
+        persistencetype: "NONE"
+        timeout: 0
+        service:
+          servicetype: "HTTP"
+          maxclient: 0
+          port: 8080
+          cmp: "NO"
           lbmonitor: "mon-ngx"
 
     lbmonitors:
-      - name: "mon-ngx"
-        type: "HTTP-ECV"
-        send: "GET /webping"
-        recv: "OK"
-        lrtm: "ENABLED"
-        downtime: 5
-        destport: 8080
+    - name: "mon-ngx"
+      type: "TCP"
+      port: 80
+      downtime: 5
 
     netscaler:
       clusters:
-        - "ie1vpxqa101.inf.betfair,ie1vpxqa102.inf.betfair"
+        - "ie1vpxnxt101.inf.betfair,ie1vpxnxt102.inf.betfair"
       proto: "https"
       timeout: "10"
 
     roll_percentage: 1
 
   ie2:
-    vip_subnet: "10.163.122.0/23"
+    vip_subnet: "10.163.96.0/23"
     csvservers:
-      - name: "cs-443-ngx-qa.default"
-        servicetype: "TCP"
-        port: 443
-        lbvserver: "lb-443-ngx-qa.default"
-        fqdn: "ie2-ngx-qa.qa.betfair"
-        cname: "ie2-ngx-qa.qa.betfair"
-
-      - name: "cs-80-ngx-qa.default"
+      - name: "cs-80-ngx-nxt.default"
         servicetype: "HTTP"
         port: 80
-        lbvserver: "lb-80-ngx-qa.default"
-        fqdn: "ie2-ngx-qa.qa.betfair"
-        cname: "ie2-ngx-qa.qa.betfair"
+        lbvserver: "lb-8080-ngx-nxt.default"
+        fqdn: "ie2-ngx-nxt.nxt.betfair"
+
+      - name: "cs-443-ngx-nxt.default"
+        servicetype: "SSL"
+        certificate: "wildcard.dev.betfair"
+        port: 443
+        lbvserver: "lb-443-ngx-nxt.default"
+        fqdn: "ie2-ngx-nxt.nxt.betfair"
 
     lbvservers:
-      - name: "lb-443-ngx-qa.default"
-        servicetype: "TCP"
-        lbmethod: "LEASTCONNECTION"
+      - name: "lb-8080-ngx-nxt.default"
+        servicetype: "HTTP"
+        lbmethod: "ROUNDROBIN"
         persistencetype: "NONE"
         timeout: 0
-        service:
-          servicetype: "TCP"
-          maxclient: 0
-          port: 8443
-          cmp: "NO"
-          lbmonitor: "mon-ngx"
-
-      - name: "lb-80-ngx-qa.default"
-        servicetype: "HTTP"
-        lbmethod: "LEASTCONNECTION"
-        persistencetype: "NONE"
         service:
           servicetype: "HTTP"
           maxclient: 0
           port: 8080
-          timeout: 0
+          cmp: "NO"
+          lbmonitor: "mon-ngx"
+
+      - name: "lb-443-ngx-nxt.default"
+        servicetype: "HTTP"
+        lbmethod: "ROUNDROBIN"
+        persistencetype: "NONE"
+        timeout: 0
+        service:
+          servicetype: "HTTP"
+          maxclient: 0
+          port: 8080
+          cmp: "NO"
           lbmonitor: "mon-ngx"
 
     lbmonitors:
-      - name: "mon-ngx"
-        type: "HTTP-ECV"
-        send: "GET /webping"
-        recv: "OK"
-        lrtm: "ENABLED"
-        downtime: 5
-        destport: 8080
+    - name: "mon-ngx"
+      type: "TCP"
+      port: 80
+      downtime: 5
 
     netscaler:
       clusters:
-        - "ie2vpxqa101.inf.betfair,ie2vpxqa102.inf.betfair"
+        - "ie2vpxnxt101.inf.betfair,ie2vpxnxt102.inf.betfair"
       proto: "https"
       timeout: "10"
 
+
     roll_percentage: 1
-    
-    
