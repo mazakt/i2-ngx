@@ -1,0 +1,56 @@
+---
+- hosts: all
+  gather_facts: no
+  max_fail_percentage: 0
+  any_errors_fatal: yes
+  serial: "{{ serial | default(1) }}"
+
+  - include: "tasks/load_env.yml"
+    vars:
+      skip_network_decision: yes
+
+  - include: "tasks/load_os_clouds.yml"
+    when: openstack is defined
+
+  - assert:
+      that:
+      - metadata.stop_cmd|default(False)
+      - metadata.start_cmd|default(False)
+      msg: "stop_cmd and start_cmd vars must be set in inventory!"
+
+  tasks:
+  - name: "Check SSH to the machine"
+    wait_for:
+      host: "{{ inventory_hostname }}"
+      port: 22
+      delay: 2
+      timeout: 10
+      state: started
+    delegate_to: 127.0.0.1
+    ignore_errors: yes
+    register: ssh_status
+
+  - block:
+      - name: stop application
+        include: "../tasks/stop_application.yml"
+        vars:
+          stop_cmd: "{{ metadata['stop_cmd'] }}"
+
+      - name: stop app message
+        debug:
+          msg: "{{inventory_hostname}} is stopped"
+
+      - name: start application
+        include: "../tasks/start_application.yml"
+        vars:
+          start_cmd: "{{ metadata['start_cmd'] }}"
+
+      - name: start app message
+        debug:
+          msg: "{{inventory_hostname}} is started"
+
+    when: ssh_status|success
+
+  - debug:
+      msg: "WARNING: ansible was unable to connect to some of the VMs but it may have restarted others"
+    when: ssh_status|failed
