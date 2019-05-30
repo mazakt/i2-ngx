@@ -54,4 +54,3 @@
   - debug:
       msg: "WARNING: ansible was unable to connect to some of the VMs but it may have restarted others"
     when: ssh_status|failed
-    
