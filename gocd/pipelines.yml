@@ -28,7 +28,7 @@ dcs:
 
 globals:
     config_repo: true
-    rolling_update: multiple_lbs
+    rolling_update: default
 
 environments:
     lab:
