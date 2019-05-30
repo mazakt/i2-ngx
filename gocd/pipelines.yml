@@ -28,7 +28,6 @@ dcs:
 
 globals:
     config_repo: true
-    rolling_update: default
 
 environments:
     lab:
