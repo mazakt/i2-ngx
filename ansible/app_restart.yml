@@ -5,7 +5,7 @@
   any_errors_fatal: yes
   serial: "{{ serial | default(1) }}"
 
-  tasks:
+  pre_tasks:
   - include: "tasks/load_env.yml"
     vars:
       skip_network_decision: yes
@@ -19,6 +19,7 @@
       - metadata.start_cmd|default(False)
       msg: "stop_cmd and start_cmd vars must be set in inventory!"
 
+  tasks:
   - name: "Check SSH to the machine"
     wait_for:
       host: "{{ inventory_hostname }}"
