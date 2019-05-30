@@ -6,11 +6,11 @@
   serial: "{{ serial | default(1) }}"
 
   pre_tasks:
-  - include: "tasks/load_env.yml"
+  - include: "common/load_env.yml"
     vars:
       skip_network_decision: yes
 
-  - include: "tasks/load_os_clouds.yml"
+  - include: "common/load_os_clouds.yml"
     when: openstack is defined
 
   - assert:
@@ -33,7 +33,7 @@
 
   - block:
       - name: stop application
-        include: "../tasks/stop_application.yml"
+        include: "common/stop_application.yml"
         vars:
           stop_cmd: "{{ metadata['stop_cmd'] }}"
 
@@ -42,7 +42,7 @@
           msg: "{{inventory_hostname}} is stopped"
 
       - name: start application
-        include: "../tasks/start_application.yml"
+        include: "common/start_application.yml"
         vars:
           start_cmd: "{{ metadata['start_cmd'] }}"
 
