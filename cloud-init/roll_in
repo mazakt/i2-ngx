@@ -1,0 +1,3 @@
+#!/bin/sh
+
+# Roll-in tasks (e.g. mount volumes, start application, join cluster, ...)

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+cat > /etc/yum.repos.d/bf-ngx.repo <<EOF
+[bf-ngx]
+name=bf-ngx
+baseurl=https://artifactory-prd.prd.betfair/artifactory/bf-ngx/
+enabled=1
+gpgcheck=0
+priority=97
+EOF
+
+yum install -y nginx
+
+
