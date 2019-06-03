@@ -65,4 +65,11 @@ environments:
         confirmation_step: false
         availability_zone: prd
         dcs: [ie1, ie2]
-
+    prd_app_restart:
+        template: generic_actions_pipeline.xml
+        open_change_request: true
+        playbook: app_restart.yml
+        availability_zone: prd
+        manual_pipeline: true
+        fetch_material_from: prd
+        original_environment: prd
