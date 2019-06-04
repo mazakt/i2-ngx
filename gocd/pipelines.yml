@@ -23,7 +23,7 @@ globals:
 
 environments:
     lab:
-        template: generic_ansible_pipeline_ns.xml
+        template: generic_cloudinit_pipeline.xml
         openstack_availability_zone: dev
         availability_zone: qa
         dcs: [ie2lab]
