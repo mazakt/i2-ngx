@@ -24,12 +24,8 @@ globals:
 environments:
     lab:
         template: generic_ansible_pipeline_ns.xml
-        vip: false
-        openstack_availability_zone: lab
+        openstack_availability_zone: dev
         availability_zone: qa
-        promotion: lab-promoted
-        tests_append_dc: true
-        test_job_rolling_update: ngx_integration-tests
         dcs: [ie2lab]
     qa:
         template: generic_ansible_pipeline_ns.xml
