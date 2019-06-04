@@ -8,23 +8,15 @@ dcs:
     ie1:
         cloud: ie1-osp10-inf
         tenant: CloudAutomationTest
-        migrate_from:
-            cloud: ie1-infra-osp7
-            tenant: infra admin
 
     ie2:
         cloud: ie2-osp10-inf
         tenant: CloudAutomationTest
-        migrate_from:
-            cloud: ie2-infra-osp7
-            tenant: infra admin
+
     ie2lab:
         testlab_dc: ie2
-        cloud: ie2-ospk-lab
-        tenant: infra admin
-        migrate_from:
-            cloud: ie2-osp10-lab
-            tenant: infra admin
+        cloud: ie2-osp10-lab
+        tenant: CloudAutomationTest
 
 globals:
     config_repo: true
