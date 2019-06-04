@@ -24,6 +24,7 @@ sensu_subs="linux,ngx-i2_linux_vm,common_checks"
 sensu_checks="check_rsyslog_disk_buffer"
 healthcheck="/usr/lib64/nagios/plugins/check_http -H localhost -p 80 -u / -e '200'"
 custom_start="true"
+roll_percentage="25%"
 
 
 ##### QA #####
@@ -62,14 +63,14 @@ ie2-ngx[01:02]-prd.prd.betfair ram=2048 min_hypervisors=1
 [ie2_ngx_lab:vars]
 ram=2048
 vcpus=10
-flavor_hw:mem_page_size="2048"
-flavor_hw:numa_nodes="2"
-flavor_hw:numa_cpus.0="0-4"
-flavor_hw:numa_cpus.1="5-9"
-flavor_hw:numa_mem.0="1024"
-flavor_hw:numa_mem.1="1024"
-flavor_hw:cpu_policy="dedicated"
-flavor_hw:cpu_thread_policy="require"
+#flavor_hw:mem_page_size="2048"
+#flavor_hw:numa_nodes="2"
+#flavor_hw:numa_cpus.0="0-4"
+#flavor_hw:numa_cpus.1="5-9"
+#flavor_hw:numa_mem.0="1024"
+#flavor_hw:numa_mem.1="1024"
+#flavor_hw:cpu_policy="dedicated"
+#flavor_hw:cpu_thread_policy="require"
 
 [ie2_ngx_lab]
 ie2-ngx01-lab.lab.betfair 
