@@ -22,8 +22,8 @@ start_cmd="/sbin/service nginx start"
 stop_cmd="/sbin/service nginx stop"
 sensu_subs="linux,ngx-i2_linux_vm,common_checks"
 sensu_checks="check_rsyslog_disk_buffer"
-healthcheck="/usr/lib64/nagios/plugins/check_http -H localhost -p 80 -u / -e '200'"
-custom_start="true"
+healthcheck="/bin/curl -m 1 -I http://localhost/"
+#custom_start="true"
 roll_percentage="25%"
 
 
@@ -73,4 +73,4 @@ vcpus=10
 #flavor_hw:cpu_thread_policy="require"
 
 [ie2_ngx_lab]
-ie2-ngx01-lab.lab.betfair 
+ie2-ngx[01:02]-lab.lab.betfair
