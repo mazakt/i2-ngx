@@ -1,0 +1,74 @@
+#cloud-config
+output:
+    init:
+        output: "> /var/log/cloud-init.out"
+        error: "> /var/log/cloud-init.err"
+    config: "tee -a /var/log/cloud-config.log"
+    final:
+        - ">> /var/log/cloud-final.out"
+        - "/var/log/cloud-final.err"
+
+write_files:
+-   content: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEogIBAAKCAQEA+noz/px5McXBXxAf8GBS/T7EEw7S3bd+xwPLt++fu9MOD4ca
+        /cfzSZ8PNce6pXY5Ws23P/+QncZuTw0RpSiNwf2co2xKL2FAG1OAhwdP3gLFUhvT
+        QZNsiUS1LekkrCjtwAHKcoPEnYQUyVHqzuEe8K4Qyyq1fHAb92oTmsHRAMfUMFaF
+        vuan2huvSL13NuTHT44RA+wkAqK/glvOB3FT1kQAkjy5yDVKJvGSxFHrqAElE0/A
+        yFhRkDb4Jzn4AMTq9WQ8AGdkE0HXCcTfRPRx1nQJcndhZSCQ02GQkpWRHu9OpQ2V
+        5SxS2obk0qox2/NmJ43UI3HO+gygJGtzIIjXEQIBIwKCAQBygQHTersPcFhl+L4k
+        vlHS2t1Kim8GRUFFCQyr20G08sSZYlV7VBdyHNPA0FVS9Dd596Q6g3VPcKd0mEKU
+        pNMW2lY8FD8rmivvPB1/jlBlfZwIRzwAuGwhfn615uwxccvFfSlY68eYduTuUVVl
+        40FYFQ79ymGX+LxT2LiBQqiv5WrZ+Fxf1gN35Sv9Boa+N27maWFb+5fUdq31O1rU
+        mH2+mw+DKmRnDkl+8uYN0vZEKNf9BrJSyvG4o0/1uhYVrkGBIqI458cOp1ieZFjA
+        59sWgZyIuW+Wi1WJBGCMDYfTBP+p0YcM3BXqCmVZIH3x0MlUTAQnTLE536eKA5Wr
+        IvxLAoGBAP48l6W6yG1uFZsIyTE40yt8T51MpnuFmXxEGe5uE6+7qguidhO0+QSc
+        ivboDGhapsxORK5k7JSdLuaWX4MSf6g3doW71es0VQB7f+GE850FC6qzDLfrCzBQ
+        O7boAPgtk1EKyQiWLAn1+NjoBPgwo0eHM+7dy37IUMxZPQ3e2cG3AoGBAPw275Xy
+        ehLVwMQGdf89+Fk7N+6+D0xcRaa10AjoUBEJpsMA2epxzQTEs0SeCAiYQQBLjGxO
+        T8wvItKnU2Se2BNzcfNoFnVu3sSzyXuaBaWQLNhUVQVgxJVnbEZ4Nv/TwQ5WyjXi
+        3tj0l043riYqV2Y385wvroyDIpVNRo3bUo13AoGAXm5G9GnyrE11vT3HEkhObzzN
+        HSsZQ9KJd0x+qQRQdHjnY2g6fFkpStsPC0A/H3Igskj08FFfL+KcZEZ7P1ADh5+S
+        bC/THNjsX0PQabUKBx8hlyyPsgbYRSUdfnNuEwmdHhny5e6ipJ0wixRZngNv2L0w
+        i+v7IHZJ5YA7P6qLZTUCgYEApb2zYolmKaJou1Sz8N+Ukmi+Ww8un+TdUEuXVk+F
+        EoKvajPCZt0Rsq0lWPoiiU4cFiMEga/OCdXVDhYvfKLlw6Oip0Rmh69B7vnNi7z8
+        ZXwANmNN0FWIf2/ZcCMc1AAuaIItHBi+VA5yDtQh+9Kudl9IULGeltnU5cURG2Q9
+        kCkCgYEAkhlIXA+iIdU6yDXxHwkvTcQOr8wOzHC1slOeMc5rhuslBWf0bFNEyil8
+        1SDvdnohzi7ypXhPMn5/xp4EoaMRolhzTFt13kw1bqlKE833qu4edhBD4IL3Y+Pd
+        r6+YUWkjEVgzkgk8GtRMsiSxrSluwY/kCJGHS0Y5yg/WjV5bhEM=
+        -----END RSA PRIVATE KEY-----
+    path: /root/.ssh/git_id_rsa
+    permissions: '0600'
+    owner: root:root
+-   content: |
+        Host gitlab.app.betfair
+            IdentityFile ~/.ssh/git_id_rsa
+            StrictHostKeyChecking no
+    path: /root/.ssh/config
+    permissions: '0600'
+    owner: root:root
+-   content: |
+        [chef-client]
+        name=chef-client
+        baseurl=https://artifactory-prd.prd.betfair/artifactory/ppb-chef/$releasever/$basearch/
+        enabled=1
+        gpgcheck=0
+        sslverify=0
+    path: /etc/yum.repos.d/chef-client.repo
+    permissions: '0644'
+    owner: root:root
+
+packages:
+  - git
+  - vim
+  - wget
+  - chef-11.18.12
+
+runcmd:
+  - mkdir /var/chef/cookbooks
+  - git clone git@gitlab.app.betfair:chef-cookbooks/bf-detestadr.git /var/chef/cookbooks/bf-detestadr
+  - wget --no-check-certificate https://artifactory-prd.prd.betfair/artifactory/releases/ngx_package/ie2lab/lab/ngx-manifest-242.json -P /tmp/
+  - chef-solo -o recipe[bf-detestadr] -j /tmp/ngx-manifest-242.json
+
+power_state:
+  mode: reboot
