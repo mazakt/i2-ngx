@@ -5,5 +5,5 @@ users:
   - user: Denis.Jackman@paddypowerbetfair.com
     role: master
 distlist:
-  - user: 'uk.iae.blue@paddypowerbetfair.com'
+  - user: 'uk.iae.blue'
     role: developer
