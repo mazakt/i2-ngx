@@ -20,6 +20,7 @@ dcs:
 
 globals:
     config_repo: true
+    blahbalah : true
 
 environments:
     lab:
