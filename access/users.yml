@@ -5,7 +5,7 @@ users:
   - user: Denis.Jackman@paddypowerbetfair.com
     role: master
   - user: Ali.Ansari@paddypowerbetfair.com
-    role: master
+    role: developer
 distlist:
   - user: mysqldbas
     role: developer
