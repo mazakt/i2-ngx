@@ -4,6 +4,8 @@ users:
   # Pre-populated from Service Now
   - user: Denis.Jackman@paddypowerbetfair.com
     role: master
-distlist:
-  - user: 'uk.iae.blue'
+  - user: Ali.Ansari@paddypowerbetfair.com
     role: developer
+    #distlist:
+    #- user: 'uk.iae.blue'
+    #role: developer
