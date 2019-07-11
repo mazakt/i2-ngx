@@ -53,6 +53,11 @@ environments:
         confirmation_step: false
         availability_zone: prd
         dcs: [ie1, ie2]
+        extra:
+            EMERGENCY:
+                fetch_material_from: qa
+                promotion: hotfix-promoted
+
     prd_app_restart:
         template: generic_actions_pipeline.xml
         open_change_request: true
