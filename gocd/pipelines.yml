@@ -56,7 +56,7 @@ environments:
         extra:
             EMERGENCY:
                 fetch_material_from: qa
-                promotion: hotfix-promoted
+#                promotion: hotfix-promoted
 
     prd_app_restart:
         template: generic_actions_pipeline.xml
