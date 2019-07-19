@@ -9,6 +9,10 @@ users:
   - user: Denis.Fongang@paddypowerbetfair.com
     role: master
 
+distlist:
+  - user: mysqldbas
+    role: developer
+
     #distlist:
     #- user: 'uk.iae.blue'
     #role: developer
