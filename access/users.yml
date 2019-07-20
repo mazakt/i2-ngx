@@ -4,9 +4,9 @@ users:
   # Pre-populated from Service Now
   - user: Denis.Jackman@paddypowerbetfair.com
     role: master
-  - user: Ali.Ansari@paddypowerbetfair.com
+  - user: Ali.Ansari@ppb.com
     role: master
-  - user: Denis.Fongang@paddypowerbetfair.com
+  - user: Denis.Fongang@ppb.com
     role: master
 
 distlist:

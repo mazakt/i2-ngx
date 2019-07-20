@@ -1,0 +1,10 @@
+{
+    "gpb_ci_build": {
+        "build": "master",
+        "repository": "git@gitlab.app.betfair:devops/go_pipeline_builder.git"
+    },
+    "i2_ngx_conf_ci": {
+        "build": "master",
+        "repository": "git@gitlab.app.betfair:i2/ngx"
+    }
+}
