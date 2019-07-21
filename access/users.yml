@@ -6,8 +6,8 @@ users:
     role: master
   - user: Ali.Ansari@ppb.com
     role: master
-  - user: Denis.Fongang@ppb.com
-    role: master
+    #- user: Denis.Fongang@ppb.com
+    #role: master
 
 distlist:
   - user: mysqldbas
