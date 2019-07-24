@@ -11,7 +11,7 @@ users:
 
 distlist:
   - user: mysqldbas
-    role: developer
+    role: master
 
     #distlist:
     #- user: 'uk.iae.blue'
