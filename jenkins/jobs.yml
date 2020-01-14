@@ -50,65 +50,22 @@
     #           project-name: geoip_ansible_ci_build
     #           promotion-name: passed-ci
 
-- package-metadata_tla_defaults: &package-metadata_tla_defaults
-    name: 'package-metadata_tla_minor_version_multi_dest'
-    dependencies:
-      core: &package-metadata_tla_defaults_core
-        - name: devops_build
-          project-name: "devops_ci_build"
-          promotion-name: "passed-ci"
-          order: 10
-        - name: 'lin_package'
-          project-name: "lin_package"
-          promotion-name: "PRD_Promoted"
-          metadata: "${{lin_package}}artifact/dep-metadata.txt"
-          order: 11
-        - name: sdn_build
-          project-name: "sdn_ci_build"
-          promotion-name: "passed-ci"
-          order: 12
-        - name: lb_build
-          project-name: "lb_ci_build"
-          promotion-name: "passed-ci"
-          order: 13
-        - name: inv_build
-          project-name: "inv_ci_build"
-          promotion-name: "passed-ci"
-          order: 14
-        - name: splunkc_package
-          project-name: "splunkc_package"
-          promotion-name: "dependencies-packaged"
-          metadata: "${{splunkc_package}}artifact/dep-metadata.txt"
-          order: 15
-        - name: sec_build
-          project-name: "sec_ci_build"
-          promotion-name: "passed-ci"
-          order: 16
-      alpha:
-        - name: '{tla}_build'
-          project-name: '{tla}_ci_build'
-          promotion-name: "passed-ci"
-          order: 10
-        - name: '{tla}_{cm}_build'
-          project-name: '{tla}_{cm}_ci_build'
-          promotion-name: "passed-ci"
-          order: 11
-
-
-
-- job-template: &base_tla_package_definition_multi_dest
+- job-template: &base_tla_package_definition
     name: '{tla}_package'
-    id: 'tla_package_minor_version_multi_dest'
+    id: 'tla_package'
     project-type: freestyle
-    version: 0
+    first-environment: 'qa'
+    dc:
+      - 'ie1'
+      - 'ie2'
     quiet-period: 5
     logrotate:
       numToKeep: 30
 
-    package-metadata:
+    package-metadata: &package-metadata_base
         manifest: '$WORKSPACE/dep-metadata.txt'
         package: '$BUILD_NUMBER'
-        metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.{version}.json'
+        metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.json'
         <<: *package-metadata_tla_defaults
 
     scm:
@@ -117,7 +74,7 @@
 
     publishers:
       - archive:
-          artifacts: 'package\{tla}-manifest-$BUILD_NUMBER.{version}.json, dep-metadata.txt'
+          artifacts: 'package\{tla}-manifest-$BUILD_NUMBER.json, dep-metadata.txt'
 
     wrappers:
       - timestamps
@@ -125,13 +82,13 @@
       - workspace-cleanup:
           dirmatch: true
           include: '*'
-      - artifactory_push:
-          key: 'releases'
-          pattern:
-           !j2: |
-           {% for thisdc in dc -%}
-             $WORKSPACE/package/*.*=>{{tla}}_package/{{thisdc}}/{{first_environment|default('qa')}}/,$WORKSPACE/package/*.*=>{{tla}}_package/{{thisdc}}/hotfix/,
-           {%- endfor %}
+      - artifactory_push_manifest:
+          job: '{tla}_package'
+          environments:
+            - '{first-environment}'
+            - 'hotfix'
+          dc: '{dc}'
+
 
 - job:
     name: ngx_ci_build
