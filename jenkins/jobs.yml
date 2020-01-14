@@ -94,6 +94,18 @@
           promotion-name: "passed-ci"
           order: 11
 
+- wrapper:
+    name: artifactory_push_manifest
+    wrappers:
+      - artifactory_push_list:
+          key: 'releases'
+          patterns:
+            - !j2: |
+                {% for thisdc in dc -%}
+                  {% for env in environments -%}
+                    $WORKSPACE/package/*.*=>{{ job }}/{{ thisdc }}/{{ env }}/,
+                  {%- endfor %}
+                {%- endfor %}
 
 
 - job-template: &tla_package_minor_version_multi_dest
