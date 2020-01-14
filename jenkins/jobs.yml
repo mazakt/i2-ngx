@@ -12,7 +12,6 @@
     jobs:
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
-    - '{tla}_package'
     extended-jobs:
     - tla_package_isolated:
         package-metadata:
@@ -49,6 +48,9 @@
             - name: geoip_ansible_ci
               project-name: geoip_ansible_ci_build
               promotion-name: passed-ci
+
+
+
 - job-template: &base_tla_package_definition_multi_dest
     name: '{tla}_package'
     id: 'tla_package_minor_version_multi_dest'
@@ -264,64 +266,3 @@
 
         </project>
         EOF
-- job-template: &base_tla_package_definition_multi_dest
-    name: '{tla}_package'
-    id: 'tla_package_minor_version_multi_dest'
-    project-type: freestyle
-    version: 0
-    quiet-period: 5
-    logrotate:
-      numToKeep: 30
-
-    package-metadata:
-        manifest: '$WORKSPACE/dep-metadata.txt'
-        package: '$BUILD_NUMBER'
-        metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.{version}.json'
-        <<: *package-metadata_tla_defaults
-
-    scm:
-      - clone_gitlab_project:
-          project_path: 'devops/framework'
-
-    publishers:
-      - archive:
-          artifacts: 'package\{tla}-manifest-$BUILD_NUMBER.{version}.json, dep-metadata.txt'
-
-    wrappers:
-      - timestamps
-      - mask-passwords
-      - workspace-cleanup:
-          dirmatch: true
-          include: '*'
-      - artifactory_push:
-          key: 'releases'
-          pattern:
-           !j2: |
-           {% for thisdc in dc -%}
-             $WORKSPACE/package/*.*=>{{tla}}_package/{{thisdc}}/{{first_environment|default('qa')}}/,$WORKSPACE/package/*.*=>{{tla}}_package/{{thisdc}}/hotfix/,
-           {%- endfor %}
-
-- job-template: &base_tla_package_isolated_definition
-    <<: *base_tla_package_definition_multi_dest
-    id: 'tla_package_minor_version_isolated_multi_dest'
-    version: 0
-    package-metadata:
-      manifest: '$WORKSPACE/dep-metadata.txt'
-      package: '$BUILD_NUMBER'
-      metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.{version}.json'
-      <<: *package-metadata_tla_defaults
-      dependencies:
-        core: *package-metadata_tla_defaults_core
-        alpha:
-          - name: '{tla}_build'
-            project-name: '{tla}_ci_build'
-            promotion-name: "passed-ci"
-            order: 10
-          - name: '{tla}_conf_build'
-            project-name: 'i2_{tla}_conf_ci'
-            promotion-name: "passed-ci"
-            order: 11
-          - name: '{tla}_{cm}_build'
-            project-name: '{tla}_{cm}_ci_build'
-            promotion-name: "passed-ci"
-            order: 12
