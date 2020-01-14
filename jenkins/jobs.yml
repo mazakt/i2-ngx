@@ -55,6 +55,7 @@
     id: 'tla_package'
     project-type: freestyle
     first-environment: 'qa'
+    version: 0
     dc:
       - 'ie1'
       - 'ie2'
@@ -65,7 +66,7 @@
     package-metadata: &package-metadata_base
         manifest: '$WORKSPACE/dep-metadata.txt'
         package: '$BUILD_NUMBER'
-        metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.json'
+        metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.{version}.json'
         <<: *package-metadata_tla_defaults
 
     scm:
