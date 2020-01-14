@@ -13,42 +13,42 @@
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
     - 'tla_package_minor_version_multi_dest'
-    extended-jobs:
-    - tla_package_isolated:
-        package-metadata:
-          dependencies:
-            core:
-            - name: sena_ansible_build
-              project-name: sena_ansible_ci_build
-              promotion-name: passed-ci
-            - name: sensu_ansible_build
-              project-name: sensu_ansible_ci_build
-              promotion-name: passed-ci
-            - name: mon_build
-              project-name: mon_ci_build
-              promotion-name: passed-ci
-            - name: tspf_ansible_build
-              project-name: tspf_ansible_ci_build
-              promotion-name: passed-ci
-            - name: slgc_ansible_build
-              project-name: slgc_ansible_ci_build
-              promotion-name: passed-ci
-            - name: cpb_ci_build
-              project-name: cpb_ci_build
-              promotion-name: passed-ci
-            alpha:
-            - name: ssl_ansible_ci_build
-              project-name: ssl_ansible_ci_build
-              promotion-name: passed-ci
-            - name: bf_jce_base_ansible_ci_build
-              project-name: bf_jce_base_ansible_ci_build
-              promotion-name: passed-ci
-            - name: bf_java_base_ansible_ci_build
-              project-name: bf_java_base_ansible_ci_build
-              promotion-name: passed-ci
-            - name: geoip_ansible_ci
-              project-name: geoip_ansible_ci_build
-              promotion-name: passed-ci
+    # extended-jobs:
+    # - tla_package_isolated:
+    #     package-metadata:
+    #       dependencies:
+    #         core:
+    #         - name: sena_ansible_build
+    #           project-name: sena_ansible_ci_build
+    #           promotion-name: passed-ci
+    #         - name: sensu_ansible_build
+    #           project-name: sensu_ansible_ci_build
+    #           promotion-name: passed-ci
+    #         - name: mon_build
+    #           project-name: mon_ci_build
+    #           promotion-name: passed-ci
+    #         - name: tspf_ansible_build
+    #           project-name: tspf_ansible_ci_build
+    #           promotion-name: passed-ci
+    #         - name: slgc_ansible_build
+    #           project-name: slgc_ansible_ci_build
+    #           promotion-name: passed-ci
+    #         - name: cpb_ci_build
+    #           project-name: cpb_ci_build
+    #           promotion-name: passed-ci
+    #         alpha:
+    #         - name: ssl_ansible_ci_build
+    #           project-name: ssl_ansible_ci_build
+    #           promotion-name: passed-ci
+    #         - name: bf_jce_base_ansible_ci_build
+    #           project-name: bf_jce_base_ansible_ci_build
+    #           promotion-name: passed-ci
+    #         - name: bf_java_base_ansible_ci_build
+    #           project-name: bf_java_base_ansible_ci_build
+    #           promotion-name: passed-ci
+    #         - name: geoip_ansible_ci
+    #           project-name: geoip_ansible_ci_build
+    #           promotion-name: passed-ci
 
 - package-metadata_tla_defaults: &package-metadata_tla_defaults
     name: 'package-metadata_tla_minor_version_multi_dest'
