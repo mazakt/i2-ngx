@@ -12,6 +12,7 @@
     jobs:
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
+    - '{tla}_package'
     extended-jobs:
     - tla_package_isolated:
         package-metadata:
