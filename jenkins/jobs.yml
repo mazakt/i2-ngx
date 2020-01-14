@@ -109,6 +109,7 @@
         manifest: '$WORKSPACE/dep-metadata.txt'
         package: '$BUILD_NUMBER'
         metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.{version}.json'
+        <<: *package-metadata_tla_defaults
 
     scm:
       - clone_gitlab_project:
