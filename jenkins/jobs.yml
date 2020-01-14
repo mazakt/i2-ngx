@@ -50,7 +50,7 @@
     #           project-name: geoip_ansible_ci_build
     #           promotion-name: passed-ci
 
-- job-template: &base_tla_package_definition
+- job-template: &tla_package_minor_version_multi_dest
     name: '{tla}_package'
     id: 'tla_package'
     project-type: freestyle
