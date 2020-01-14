@@ -13,86 +13,43 @@
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
     - 'tla_package_minor_version_multi_dest'
-    # extended-jobs:
-    # - tla_package_isolated:
-    #     package-metadata:
-    #       dependencies:
-    #         core:
-    #         - name: sena_ansible_build
-    #           project-name: sena_ansible_ci_build
-    #           promotion-name: passed-ci
-    #         - name: sensu_ansible_build
-    #           project-name: sensu_ansible_ci_build
-    #           promotion-name: passed-ci
-    #         - name: mon_build
-    #           project-name: mon_ci_build
-    #           promotion-name: passed-ci
-    #         - name: tspf_ansible_build
-    #           project-name: tspf_ansible_ci_build
-    #           promotion-name: passed-ci
-    #         - name: slgc_ansible_build
-    #           project-name: slgc_ansible_ci_build
-    #           promotion-name: passed-ci
-    #         - name: cpb_ci_build
-    #           project-name: cpb_ci_build
-    #           promotion-name: passed-ci
-    #         alpha:
-    #         - name: ssl_ansible_ci_build
-    #           project-name: ssl_ansible_ci_build
-    #           promotion-name: passed-ci
-    #         - name: bf_jce_base_ansible_ci_build
-    #           project-name: bf_jce_base_ansible_ci_build
-    #           promotion-name: passed-ci
-    #         - name: bf_java_base_ansible_ci_build
-    #           project-name: bf_java_base_ansible_ci_build
-    #           promotion-name: passed-ci
-    #         - name: geoip_ansible_ci
-    #           project-name: geoip_ansible_ci_build
-    #           promotion-name: passed-ci
+    extended-jobs:
+    - tla_package_isolated:
+        package-metadata:
+          dependencies:
+            core:
+            - name: sena_ansible_build
+              project-name: sena_ansible_ci_build
+              promotion-name: passed-ci
+            - name: sensu_ansible_build
+              project-name: sensu_ansible_ci_build
+              promotion-name: passed-ci
+            - name: mon_build
+              project-name: mon_ci_build
+              promotion-name: passed-ci
+            - name: tspf_ansible_build
+              project-name: tspf_ansible_ci_build
+              promotion-name: passed-ci
+            - name: slgc_ansible_build
+              project-name: slgc_ansible_ci_build
+              promotion-name: passed-ci
+            - name: cpb_ci_build
+              project-name: cpb_ci_build
+              promotion-name: passed-ci
+            alpha:
+            - name: ssl_ansible_ci_build
+              project-name: ssl_ansible_ci_build
+              promotion-name: passed-ci
+            - name: bf_jce_base_ansible_ci_build
+              project-name: bf_jce_base_ansible_ci_build
+              promotion-name: passed-ci
+            - name: bf_java_base_ansible_ci_build
+              project-name: bf_java_base_ansible_ci_build
+              promotion-name: passed-ci
+            - name: geoip_ansible_ci
+              project-name: geoip_ansible_ci_build
+              promotion-name: passed-ci
 
-- package-metadata_tla_defaults: &package-metadata_tla_defaults
-    name: 'package-metadata_tla_minor_version_multi_dest'
-    dependencies:
-      core: &package-metadata_tla_defaults_core
-        - name: devops_build
-          project-name: "devops_ci_build"
-          promotion-name: "passed-ci"
-          order: 10
-        - name: 'lin_package'
-          project-name: "lin_package"
-          promotion-name: "PRD_Promoted"
-          metadata: "${{lin_package}}artifact/dep-metadata.txt"
-          order: 11
-        - name: sdn_build
-          project-name: "sdn_ci_build"
-          promotion-name: "passed-ci"
-          order: 12
-        - name: lb_build
-          project-name: "lb_ci_build"
-          promotion-name: "passed-ci"
-          order: 13
-        - name: inv_build
-          project-name: "inv_ci_build"
-          promotion-name: "passed-ci"
-          order: 14
-        - name: splunkc_package
-          project-name: "splunkc_package"
-          promotion-name: "dependencies-packaged"
-          metadata: "${{splunkc_package}}artifact/dep-metadata.txt"
-          order: 15
-        - name: sec_build
-          project-name: "sec_ci_build"
-          promotion-name: "passed-ci"
-          order: 16
-      alpha:
-        - name: '{tla}_build'
-          project-name: '{tla}_ci_build'
-          promotion-name: "passed-ci"
-          order: 10
-        - name: '{tla}_{cm}_build'
-          project-name: '{tla}_{cm}_ci_build'
-          promotion-name: "passed-ci"
-          order: 11
 
 - job-template: &base_tla_package_definition_multi_dest
     name: '{tla}_package'
@@ -107,7 +64,6 @@
         manifest: '$WORKSPACE/dep-metadata.txt'
         package: '$BUILD_NUMBER'
         metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.{version}.json'
-        <<: *package-metadata_tla_defaults
 
     scm:
       - clone_gitlab_project:
