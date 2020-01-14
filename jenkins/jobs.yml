@@ -264,7 +264,6 @@
 
         </project>
         EOF
-        
 - job-template: &base_tla_package_definition_multi_dest
     name: '{tla}_package'
     id: 'tla_package_minor_version_multi_dest'
@@ -326,3 +325,4 @@
             project-name: '{tla}_{cm}_ci_build'
             promotion-name: "passed-ci"
             order: 12
+            
