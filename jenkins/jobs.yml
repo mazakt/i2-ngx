@@ -50,7 +50,7 @@
               promotion-name: passed-ci
 
 - package-metadata_tla_defaults: &package-metadata_tla_defaults
-    name: 'package-metadata_tla_defaults_multi_dest'
+    name: 'package-metadata_tla_minor_version_multi_dest'
     dependencies:
       core: &package-metadata_tla_defaults_core
         - name: devops_build
@@ -92,7 +92,6 @@
           project-name: '{tla}_{cm}_ci_build'
           promotion-name: "passed-ci"
           order: 11
-
 
 - job-template: &base_tla_package_definition_multi_dest
     name: '{tla}_package'
