@@ -50,6 +50,52 @@
     #           project-name: geoip_ansible_ci_build
     #           promotion-name: passed-ci
 
+- package-metadata_tla_defaults: &package-metadata_minor_version_tla_defaults
+    name: 'package-metadata_minor_version_tla_defaults'
+    dependencies:
+      core: &package-metadata_tla_defaults_core
+        - name: devops_build
+          project-name: "devops_ci_build"
+          promotion-name: "passed-ci"
+          order: 10
+        - name: 'lin_package'
+          project-name: "lin_package"
+          promotion-name: "PRD_Promoted"
+          metadata: "${{lin_package}}artifact/dep-metadata.txt"
+          order: 11
+        - name: sdn_build
+          project-name: "sdn_ci_build"
+          promotion-name: "passed-ci"
+          order: 12
+        - name: lb_build
+          project-name: "lb_ci_build"
+          promotion-name: "passed-ci"
+          order: 13
+        - name: inv_build
+          project-name: "inv_ci_build"
+          promotion-name: "passed-ci"
+          order: 14
+        - name: splunkc_package
+          project-name: "splunkc_package"
+          promotion-name: "dependencies-packaged"
+          metadata: "${{splunkc_package}}artifact/dep-metadata.txt"
+          order: 15
+        - name: sec_build
+          project-name: "sec_ci_build"
+          promotion-name: "passed-ci"
+          order: 16
+      alpha:
+        - name: '{tla}_build'
+          project-name: '{tla}_ci_build'
+          promotion-name: "passed-ci"
+          order: 10
+        - name: '{tla}_{cm}_build'
+          project-name: '{tla}_{cm}_ci_build'
+          promotion-name: "passed-ci"
+          order: 11
+
+
+
 - job-template: &tla_package_minor_version_multi_dest
     name: '{tla}_package'
     id: 'tla_package_minor_version_multi_dest'
@@ -67,7 +113,7 @@
         manifest: '$WORKSPACE/dep-metadata.txt'
         package: '$BUILD_NUMBER'
         metadata: '$WORKSPACE/package/{tla}-manifest-$BUILD_NUMBER.{version}.json'
-        <<: *package-metadata_tla_defaults
+        <<: *package-metadata_minor_version_tla_defaults
 
     scm:
       - clone_gitlab_project:
