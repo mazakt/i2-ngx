@@ -52,7 +52,7 @@
 
 - job-template: &tla_package_minor_version_multi_dest
     name: '{tla}_package'
-    id: 'tla_package'
+    id: 'tla_package_minor_version_multi_dest'
     project-type: freestyle
     first-environment: 'qa'
     version: 0
