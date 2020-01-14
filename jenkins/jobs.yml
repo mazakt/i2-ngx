@@ -133,7 +133,7 @@
 
     publishers:
       - archive:
-          artifacts: 'package\{tla}-manifest-$BUILD_NUMBER.json, dep-metadata.txt'
+          artifacts: 'package\{tla}-manifest-$BUILD_NUMBER.{version}.json, dep-metadata.txt'
 
     wrappers:
       - timestamps
