@@ -325,4 +325,3 @@
             project-name: '{tla}_{cm}_ci_build'
             promotion-name: "passed-ci"
             order: 12
-            
