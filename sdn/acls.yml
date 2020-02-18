@@ -1,6 +1,23 @@
 ---
 acls:
-  ingress: []
+  ingress:
+  - name: http-from-ns
+    protocol: "TCP"
+    src_type: "ENTERPRISE_NETWORK"
+    src: "netscalers_vips-snip"
+    dst_port: 80
+
+  - name: http-from-ns-qanxt
+    protocol: "TCP"
+    src_type: "ENTERPRISE_NETWORK"
+    src: "netscalers_vips-snip"
+    dst_port: 80
+    env_mapping:
+      qa: nxt
+      nxt: None
+      prf: None
+      prd: None
+
   egress:
   - name: avi-dns
     protocol: UDP
