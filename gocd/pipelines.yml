@@ -1,5 +1,5 @@
 ---
-schema_version: 1.4.0
+schema_version: 1.9.0
 
 product: ngx
 go_server: infra
@@ -20,6 +20,10 @@ dcs:
 
 globals:
     config_repo: true
+    perimeter_migration: true
+    netscaler_clusters:
+      ie1:
+        qa: [ie1-qa-tr2lbr-01.inf.betfair, ie1-qa-tr2lbr-02.inf.betfair]
 
 environments:
     lab:
