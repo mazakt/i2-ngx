@@ -6,17 +6,11 @@ acls:
     src_type: "ENTERPRISE_NETWORK"
     src: "netscalers_vips-snip"
     dst_port: 80
-
-  - name: http-from-ns-qanxt
-    protocol: "TCP"
-    src_type: "ENTERPRISE_NETWORK"
-    src: "netscalers_vips-snip"
-    dst_port: 80
     env_mapping:
-      qa: nxt
-      nxt: None
-      prf: None
-      prd: None
+      qa: prf
+      nxt: prf
+      prf: prf
+      prd: prd
 
   egress:
   - name: avi-dns
