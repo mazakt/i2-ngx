@@ -35,6 +35,10 @@
             - name: cpb_ci_build
               project-name: cpb_ci_build
               promotion-name: passed-ci
+            - name: imagebuilder_osp_centos7_base
+              project-name: "imagebuilder_osp_centos7_base"
+              promotion-name: "passed-build"
+              metadata: "${{imagebuilder_osp_centos7_base}}artifact/imagebuild_metadata.json"
             alpha:
             - name: ssl_ansible_ci_build
               project-name: ssl_ansible_ci_build
