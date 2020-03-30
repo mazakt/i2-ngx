@@ -34,7 +34,7 @@ environments:
         test_job_rolling_update: ngx_integration-tests
         dcs: [ie1, ie2]
     qa_app_restart:
-        template: generic_actions_pipeline.xml
+        template: stopstart_pipeline.xml
         playbook: app_restart.yml
         availability_zone: qa
         manual_pipeline: true
