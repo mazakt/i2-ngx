@@ -13,8 +13,7 @@
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
     extended-jobs:
-    #- tla_package_isolated_env_dc:
-    - tla_package_isolated:
+    - tla_package_isolated_env_dc:
         package-metadata:
           dependencies:
             core:
