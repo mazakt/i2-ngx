@@ -12,6 +12,13 @@
     jobs:
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
+    parameters:
+    - string:
+      name: listdcs
+      default: ''
+    - string:
+      name: listenvs
+      default: ''
     extended-jobs:
     - tla_package_isolated_env_dc:
         package-metadata:
