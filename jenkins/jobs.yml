@@ -15,10 +15,8 @@
     parameters:
     - string:
       name: listdcs
-      default: ''
     - string:
       name: listenvs
-      default: ''
     extended-jobs:
     - tla_package_isolated_env_dc:
         package-metadata:
