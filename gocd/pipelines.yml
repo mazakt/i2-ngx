@@ -40,6 +40,7 @@ environments:
         dcs: [ie1, ie2]
     qa_app_restart:
         template: stopstart_pipeline.xml
+        confirmation_step: true
         playbook: app_restart.yml
         availability_zone: qa
         manual_pipeline: true
