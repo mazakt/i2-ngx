@@ -25,6 +25,7 @@ sensu_checks="check_rsyslog_disk_buffer"
 healthcheck="/usr/lib64/nagios/plugins/check_http -H localhost -p 80 -u / -e '200'"
 custom_start="true"
 roll_percentage="25%"
+app_group="pp-openbet_qa" #test
 
 
 ##### QA #####
@@ -73,4 +74,4 @@ vcpus=10
 #flavor_hw:cpu_thread_policy="require"
 
 [ie2_ngx_lab]
-ie2-ngx01-lab.lab.betfair 
+ie2-ngx01-lab.lab.betfair
