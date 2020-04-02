@@ -49,9 +49,6 @@
             - name: bf_java_base_ansible_ci_build
               project-name: bf_java_base_ansible_ci_build
               promotion-name: passed-ci
-            - name: geoip_ansible_ci
-              project-name: geoip_ansible_ci_build
-              promotion-name: passed-ci
 
 - job:
     name: ngx_ci_build
