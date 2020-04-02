@@ -12,6 +12,15 @@
     jobs:
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
+    - parameters:
+      - string:
+          name: listdcs
+          default: 'ie1,i2'
+          description: 'List of data centres'
+      - string:
+          name: listenvs
+          default: 'qa,nxt,prf'
+          description: 'List of environments'
     extended-jobs:
     - tla_package_isolated_env_dc:
         package-metadata:
