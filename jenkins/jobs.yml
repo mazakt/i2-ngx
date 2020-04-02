@@ -12,7 +12,7 @@
     jobs:
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
-    extended-jobs:
+    override-jobs:
     - tla_package_isolated_env_dc:
         parameters:
           - string:
