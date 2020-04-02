@@ -12,17 +12,8 @@
     jobs:
     - '{tla}_{cm}_ci_build'
     - '{tla}_integration-tests-{dc}'
-    override-jobs:
+    extended-jobs:
     - tla_package_isolated_env_dc:
-        parameters:
-          - string:
-              name: listdcs
-              default: ''
-              description: 'List of data centres'
-          - string:
-              name: listenvs
-              default: ''
-              description: 'List of environments'
         package-metadata:
           dependencies:
             core:
