@@ -16,7 +16,7 @@ ie2_ngx_lab
 [ngx:vars]
 vcpus=2
 diskspace=20
-image="base_centos7"
+image="centos-7-base"
 runlist="bf-nginx,rsyslog-client,sensu"
 start_cmd="/sbin/service nginx start"
 stop_cmd="/sbin/service nginx stop"
