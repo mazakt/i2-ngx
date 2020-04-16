@@ -21,7 +21,7 @@ dcs:
 globals:
     config_repo: true
     app_group: ngx-qa
-    perimeter_migration: true
+#    perimeter_migration: true
     netscaler_clusters:
       ie1:
         qa: [ie1-qa-tr2lbr-01.inf.betfair, ie1-qa-tr2lbr-02.inf.betfair]
