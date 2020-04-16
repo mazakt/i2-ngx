@@ -21,7 +21,6 @@ dcs:
 globals:
     config_repo: true
     perimeter_migration: true
-    tier1: true
     netscaler_clusters:
       ie1:
         qa: [ie1-qa-tr2lbr-01.inf.betfair, ie1-qa-tr2lbr-02.inf.betfair]
