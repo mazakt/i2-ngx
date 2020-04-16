@@ -20,6 +20,7 @@ dcs:
 
 globals:
     config_repo: true
+    app_group: ngx-qa
     perimeter_migration: true
     netscaler_clusters:
       ie1:
