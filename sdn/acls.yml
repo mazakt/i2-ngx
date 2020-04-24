@@ -12,25 +12,25 @@ acls:
       prf: prf
       prd: prd
 
-  - name: allow-qa-nxt-a
-    protocol: "TCP"
-    src_type: "ENTERPRISE_NETWORK"
-    src: "ngx_a"
-    env_mapping:
-      qa: nxt
-      nxt: None
-      prf: None
-      prd: None
-
-  - name: allow-qa-nxt-b
-    protocol: "TCP"
-    src_type: "ENTERPRISE_NETWORK"
-    src: "ngx_b"
-    env_mapping:
-      qa: nxt
-      nxt: None
-      prf: None
-      prd: None
+#  - name: allow-qa-nxt-a
+#    protocol: "TCP"
+#    src_type: "ENTERPRISE_NETWORK"
+#    src: "ngx_a"
+#    env_mapping:
+#      qa: nxt
+#      nxt: None
+#      prf: None
+#      prd: None
+#
+#  - name: allow-qa-nxt-b
+#    protocol: "TCP"
+#    src_type: "ENTERPRISE_NETWORK"
+#    src: "ngx_b"
+#    env_mapping:
+#      qa: nxt
+#      nxt: None
+#      prf: None
+#      prd: None
 
   egress:
   - name: avi-dns
@@ -44,22 +44,22 @@ acls:
       prf: None
       prd: None
 
-  - name: egress-qa-nxt-a
-    protocol: "TCP"
-    dst_type: "ENTERPRISE_NETWORK"
-    dst: "ngx_a"
-    env_mapping:
-      qa: nxt
-      nxt: None
-      prf: None
-      prd: None
-
-  - name: egress-qa-nxt-b
-    protocol: "TCP"
-    dst_type: "ENTERPRISE_NETWORK"
-    dst: "ngx_b"
-    env_mapping:
-      qa: nxt
-      nxt: None
-      prf: None
-      prd: None
+#  - name: egress-qa-nxt-a
+#    protocol: "TCP"
+#    dst_type: "ENTERPRISE_NETWORK"
+#    dst: "ngx_a"
+#    env_mapping:
+#      qa: nxt
+#      nxt: None
+#      prf: None
+#      prd: None
+#
+#  - name: egress-qa-nxt-b
+#    protocol: "TCP"
+#    dst_type: "ENTERPRISE_NETWORK"
+#    dst: "ngx_b"
+#    env_mapping:
+#      qa: nxt
+#      nxt: None
+#      prf: None
+#      prd: None
