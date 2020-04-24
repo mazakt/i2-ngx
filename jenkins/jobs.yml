@@ -16,6 +16,11 @@
     - tla_package_isolated_env_dc:
         triggers:
           - timed: 'H 10 1 * *'
+        publishers:
+          - slack:
+              room: '#i2-refresh-builds'
+              notify-success: true
+              notify-failure: true
         package-metadata:
           dependencies:
             core:
