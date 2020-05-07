@@ -52,10 +52,10 @@
             - name: bf_java_base_ansible_ci_build
               project-name: bf_java_base_ansible_ci_build
               promotion-name: passed-ci
-            - name: imagebuilder_osp_app_centos7_nginx-1.16.1
+            - name: imagebuilder_nginx_app_image
               project-name: imagebuilder_osp_app_centos7_nginx-1.16.1
               promotion-name: "passed-build"
-              metadata: "${{imagebuilder_osp_app_centos7_nginx-1.16.1}}artifact/imagebuild_metadata.json"
+              metadata: "${{imagebuilder_nginx_app_image}}artifact/imagebuild_metadata.json"
 
 
 - job:
