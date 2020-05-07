@@ -27,7 +27,9 @@
   roles:
     - sensu # shared role
     - bf-nginx
-    - rsyslog-client # shared role
+    # Rsyslog client fails to install when using nginx app image, as the app
+    # image is missing LDAP config, and the ldap_logbot group cannot be found
+    # - rsyslog-client # shared role
 
   tasks:
     - debug:
